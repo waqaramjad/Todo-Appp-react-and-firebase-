@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as firebase from 'firebase';
+import Todo from './todo'
 
 
 var fb = firebase.initializeApp({
@@ -13,6 +14,28 @@ var fb = firebase.initializeApp({
 
   class TodoAdd extends Component{
 
+    constructor(props) {
+        super(props);
+        // this.deleteTodo = this.deleteTodo.bind(this);
+      
+        this.state = { todos: [] };
+        this.addTodo = this.addTodo.bind(this)
+      }
+
+
+addTodo(ev){
+    ev.preventDefault()   
+
+   let todoList = this.state.todos;
+   todoList.push(this.refs.todoValue.value)
+   console.log(this.refs.todoValue.value);
+   this.refs.todoValue.value = ''
+   this.setState({
+       todos: todoList
+    })
+    console.log(this.state.todos);
+ 
+}
 
 render(){
     return(
@@ -20,10 +43,16 @@ render(){
     <br/>
     <br/>
     <br/>
-<input type='text'/><button>Add todo</button>
-    <h1>wiki</h1>
-</div>
+    <form >
 
+
+<input type='text' ref='todoValue'/>
+<button onClick={this.addTodo}>Add todo</button>
+    <h1>wiki</h1>
+    </form>
+
+<Todo></Todo>
+</div>
 
     )
 }
