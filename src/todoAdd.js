@@ -18,23 +18,33 @@ var fb = firebase.initializeApp({
         super(props);
         // this.deleteTodo = this.deleteTodo.bind(this);
       
-        this.state = { todos: [] };
+        // this.state = { todos: [] };
         this.addTodo = this.addTodo.bind(this)
       }
 
 
 addTodo(ev){
     ev.preventDefault()   
-
-   let todoList = this.state.todos;
-   todoList.push(this.refs.todoValue.value)
-   console.log(this.refs.todoValue.value);
-   this.refs.todoValue.value = ''
-   this.setState({
-       todos: todoList
-    })
-    console.log(this.state.todos);
+//    let todoList = this.state.todos;
+//    todoList.push(this.refs.todoValue.value)
+//    console.log(this.refs.todoValue.value);
+//    this.refs.todoValue.value = ''
+//    this.setState({
+//        todos: todoList
+//     })
+//     console.log(this.state.todos);
+//     firebase.database.child('/todos').push(this.state.todos)
  
+
+fb.database().ref('/').child('todos').push({ todos: this.refs.todoValue.value })
+this.refs.todoValue.value = ''
+// .then((v) => {
+//   console.log(v,'v inside add todo')
+//   this.refs.todoValue.value = '';
+// })
+
+
+
 }
 
 render(){
